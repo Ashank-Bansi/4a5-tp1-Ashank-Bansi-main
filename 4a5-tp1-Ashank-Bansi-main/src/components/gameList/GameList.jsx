@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { gameList } from "../../data/gameList";
 import GameCard from "../gameCard/GameCard";
-import GameForm from "../gameForm/GameForm"
+import "./GameList.css";
 
 export default function GameList() {
     const [games, setGames] = useState(gameList);
 
-    const handleAddGame = (newGame) => {
-        setGames((prevGames) => [...prevGames, newGame]);
-    };
-
     return (
         <div>
-            <GameForm onAddGame={handleAddGame} />
+            <h2>Liste des jeux</h2>
             <ul className="game-list">
                 {games.map((game) => (
                     <li key={game.id}>
