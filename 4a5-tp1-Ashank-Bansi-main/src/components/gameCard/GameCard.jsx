@@ -1,7 +1,11 @@
 import GameIcon from "../gameIcon/GameIcon";
 import "./GameCard.css";
+import { AuthContext } from "../authContext/AuthContext"; 
+import { useContext } from "react";
 
 function GameCard(props) {
+    const {isLoggedIn} = useContext(AuthContext);
+
     return (
         <div className="game-card">
             <div className="game-card-header">
@@ -13,10 +17,12 @@ function GameCard(props) {
                 <p>Durée: {props.duree} min</p>
                 <p>Joueurs: {props.joueurMin}-{props.joueurMax}</p>
             </div>
-            <div className="game-card-buttons">
+            {isLoggedIn && (
+            <div className="game-card-buttons">               
                 <button className="game-card-button-modify">Modifier</button>
                 <button className="game-card-button-delete">Supprimer</button>
             </div>
+        )}
         </div>
     );
 }
