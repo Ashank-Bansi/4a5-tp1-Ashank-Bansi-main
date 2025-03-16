@@ -1,28 +1,25 @@
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { useCallback, useState } from "react";
+import { AuthContext } from "./components/authContext/AuthContext";
+import LoginForm from "./components/LoginForm/LoginForm";
+import GameList from "./components/GameList/GameList";
+import GameForm from "./components/gameForm/GameForm";
+import RootLayout from "./Containers/Roots"
+import ErrorPage from "./Containers/ErrorPage"
 
-
-
-function App() {
-  
-  return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <div>
-        <h1>Bonjour</h1>
-        <h2>[Votre nom]</h2>
-      </div>
-    </>
-  )
-}
-
-
-   
- 
-
-export default App
+const router = createBrowserRouter([
+  {
+    path: "/",
+      element: <RootLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+      { path: "", element: <GameList/> },
+      { path: "login", element: <LoginForm /> },
+      { path: "*", element: <Navigate to="/" replace /> },
+    ],
+  },
+]);
