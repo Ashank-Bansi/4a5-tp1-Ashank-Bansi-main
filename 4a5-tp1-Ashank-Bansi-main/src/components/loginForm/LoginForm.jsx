@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../authContext/AuthContext";
 import "./LoginForm.css";
+import { useNavigate } from "react-router-dom"; 
+
 
 export default function LoginForm() {
     const auth = useContext(AuthContext);
+    const navigate = useNavigate();
     const [enteredValues, setEnteredValues] = useState({
         username: "",
         password: "",
@@ -17,6 +20,7 @@ export default function LoginForm() {
             password: "",
         });
         auth.login();
+        navigate("/games")
     };
 
     return (

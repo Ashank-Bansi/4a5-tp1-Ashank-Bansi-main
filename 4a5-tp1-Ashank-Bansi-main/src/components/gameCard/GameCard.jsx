@@ -1,13 +1,13 @@
 import GameIcon from "../gameIcon/GameIcon";
 import "./GameCard.css";
 
-function GameCard(props) { 
+function GameCard(props) {
     return (
         <div className="game-card">
             <div className="game-card-header">
                 <GameIcon cover={props.cover} />
-                <span className="game-card-name">{props.name}</span>
             </div>
+            <h2 className="game-card-name">{props.name}</h2> 
             <div className="game-card-body">
                 <p>Catégorie: {props.categorie}</p>
                 <p>Durée: {props.duree} min</p>

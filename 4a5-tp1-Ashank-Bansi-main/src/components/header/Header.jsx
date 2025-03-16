@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 import { AuthContext } from "../authContext/AuthContext";
 import "./Header.css"; 
 
 function Header() {
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    logout(); 
+    navigate("/games"); 
+  };
 
   return (
     <header className="header">
@@ -13,7 +19,7 @@ function Header() {
         {isLoggedIn ? (
           <>
             <Link to="/games/new">Ajouter un jeu</Link>
-            <button onClick={logout}>Déconnexion</button>
+            <button onClick={handleLogout}>Déconnexion</button> 
           </>
         ) : (
           <Link to="/login">Connexion</Link>
