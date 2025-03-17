@@ -1,8 +1,11 @@
 import "./GameForm.css";
-import GAMES from "../../data/gameList.js"; // Base de données locale
+import GAME from "../../data/gameList"; 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
 const GameForm = () => {
+    const navigate = useNavigate();
+    
     const [enteredValues, setEnteredValues] = useState({
         name: "",
         categorie: "",
@@ -16,7 +19,7 @@ const GameForm = () => {
         event.preventDefault();
 
         const newGame = {
-            id: "jeuTest1",
+            id: Date.now(), // Générer un ID unique
             name: enteredValues.name,
             categorie: enteredValues.categorie,
             joueurMin: parseInt(enteredValues.joueurMin, 10),
@@ -25,10 +28,16 @@ const GameForm = () => {
             cover: enteredValues.cover,
         };
 
-        GAMES.push(newGame);
-        console.log(GAMES);
+        // Ajouter le jeu à gameList.js (pas conservé après un refresh)
+        GAME.push(newGame);
 
-        setEnteredValues({ name: "", categorie: "", joueurMin: "", joueurMax: "", duree: "", cover: "" });
+        // Sauvegarde temporaire dans sessionStorage
+        const storedGames = JSON.parse(sessionStorage.getItem("games")) || [...GAME];
+        storedGames.push(newGame);
+        sessionStorage.setItem("games", JSON.stringify(storedGames));
+
+        // Redirection vers la liste des jeux
+        navigate("/games");
     }
 
     const handleInputChange = (identifier, value) => {
@@ -41,15 +50,14 @@ const GameForm = () => {
     return (
         <form onSubmit={addGameSubmitHandler}>
             <h2>Ajouter un Jeu</h2>
-
             <div className="control">
                 <label htmlFor="name">Nom du jeu</label>
                 <input
                     id="name"
                     type="text"
                     value={enteredValues.name}
+                    placeholder="Exemple : Catan "
                     onChange={(event) => handleInputChange("name", event.target.value)}
-                    placeholder="Exemple : Catan"
                     required
                 />
             </div>
@@ -73,9 +81,9 @@ const GameForm = () => {
                 <input
                     type="text"
                     value={`${enteredValues.joueurMin}-${enteredValues.joueurMax}`}
-                    placeholder="3-4"
-                    onChange={(event) => {
-                        const [min, max] = event.target.value.split('-');
+                    placeholder="Exemple : 3-4"
+                    onChange={(e) => {
+                        const [min, max] = e.target.value.split('-');
                         handleInputChange("joueurMin", min);
                         handleInputChange("joueurMax", max);
                     }}
@@ -88,22 +96,12 @@ const GameForm = () => {
                 <input
                     type="number"
                     value={enteredValues.duree}
+                    placeholder="Exemple : 60 "
                     onChange={(event) => handleInputChange("duree", event.target.value)}
-                    placeholder="60"
-                    min="1"
                     required
                 />
             </div>
-
-            <div className="control">
-
-                <p className="form-actions">
-                    <button type="submit" className="button">
-                        Enregistrer
-                    </button>
-                </p>
-
-            </div>
+            <button type="submit">Enregistrer</button>
 
         </form>
     );

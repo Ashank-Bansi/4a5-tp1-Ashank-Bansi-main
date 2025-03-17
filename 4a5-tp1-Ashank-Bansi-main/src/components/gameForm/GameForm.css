@@ -2,63 +2,49 @@
     background: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 360px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  h2 {
+}
+
+h2 {    
     text-align: center;
     color: #333;
-  }
-  
-  .control {
-    margin-bottom: 20px;
-  }
-  
-  .control label {
-    display: block;
+    margin-bottom: 10px;
+}
+
+.control {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.control label {
     font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .control input,
-  .control select {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.control input,
+.control select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  button {
+    background: #f9f9f9;
+}
+
+button {
+    flex: 1;
     padding: 10px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
-  }
-  
-  button[type="submit"] {
+}
+
+button[type="submit"] {
     background-color: #4CAF50;
     color: white;
-  }
-  
-  button[type="reset"] {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     opacity: 0.9;
-  }
-  
+}

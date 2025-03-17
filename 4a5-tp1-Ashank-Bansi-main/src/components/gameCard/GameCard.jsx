@@ -1,17 +1,16 @@
+import { useContext, useState } from "react";
 import GameIcon from "../gameIcon/GameIcon";
 import "./GameCard.css";
 import { AuthContext } from "../authContext/AuthContext"; 
-import { useContext } from "react";
-import SuppressionModal from "../modal/SupprimmerModal";
-
+import SuppressionModal from "../modal/SupprimerModal";
 
 function GameCard(props) {
-    const {isLoggedIn} = useContext(AuthContext);
-    const [supressionModal, setSuppressionModal] = useState(false);
+    const { isLoggedIn } = useContext(AuthContext);
+    const [suppressionModal, setSuppressionModal] = useState(false);
 
     const handleDeleteClick = () => {
         setSuppressionModal(true);
-    }
+    };
 
     return (
         <div className="game-card">
@@ -25,11 +24,20 @@ function GameCard(props) {
                 <p>Joueurs: {props.joueurMin}-{props.joueurMax}</p>
             </div>
             {isLoggedIn && (
-            <div className="game-card-buttons">               
-                <button className="game-card-button-modify">Modifier</button>
-                <button className="game-card-button-delete">Supprimer</button>
-            </div>
-        )}
+                <div className="game-card-buttons">               
+                    <button className="game-card-button-modify">Modifier</button>
+                    <button onClick={handleDeleteClick} className="game-card-button-delete">Supprimer</button>
+                </div>
+            )}
+            {suppressionModal && (
+                <SuppressionModal
+                    onClose={() => setSuppressionModal(false)}
+                    onConfirm={() => {
+                        props.onDelete(props.id); // Correction ici
+                        setSuppressionModal(false); // Ferme le modal après suppression
+                    }}
+                />
+            )}
         </div>
     );
 }

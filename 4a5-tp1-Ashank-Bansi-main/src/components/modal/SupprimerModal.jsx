@@ -1,5 +1,5 @@
 import React from 'react'; 
-import '../SupressionModal/SupressionModal.css'
+import './SupprimerModal.css'
 
 function SuppressionModal({ onClose, onConfirm }) {
   return (
