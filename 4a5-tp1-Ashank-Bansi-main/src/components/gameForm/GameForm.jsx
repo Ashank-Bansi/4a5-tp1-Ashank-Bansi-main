@@ -1,11 +1,10 @@
 import "./GameForm.css";
-import GAME from "../../data/gameList"; 
+import gameList from "../../data/gameList"; 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 
 const GameForm = () => {
     const navigate = useNavigate();
-    
     const [enteredValues, setEnteredValues] = useState({
         name: "",
         categorie: "",
@@ -15,7 +14,7 @@ const GameForm = () => {
         cover: "",
     });
 
-    function addGameSubmitHandler(event) {
+    const addGameSubmitHandler = (event) => {
         event.preventDefault();
 
         const newGame = {
@@ -28,17 +27,12 @@ const GameForm = () => {
             cover: enteredValues.cover,
         };
 
-        // Ajouter le jeu à gameList.js (pas conservé après un refresh)
-        GAME.push(newGame);
-
-        // Sauvegarde temporaire dans sessionStorage
-        const storedGames = JSON.parse(sessionStorage.getItem("games")) || [...GAME];
-        storedGames.push(newGame);
-        sessionStorage.setItem("games", JSON.stringify(storedGames));
+        
+        gameList.push(newGame);
 
         // Redirection vers la liste des jeux
         navigate("/games");
-    }
+    };
 
     const handleInputChange = (identifier, value) => {
         setEnteredValues((prevValue) => ({
@@ -56,7 +50,7 @@ const GameForm = () => {
                     id="name"
                     type="text"
                     value={enteredValues.name}
-                    placeholder="Exemple : Catan "
+                    placeholder="Exemple : Catan"
                     onChange={(event) => handleInputChange("name", event.target.value)}
                     required
                 />
@@ -96,13 +90,13 @@ const GameForm = () => {
                 <input
                     type="number"
                     value={enteredValues.duree}
-                    placeholder="Exemple : 60 "
+                    placeholder="Exemple : 60"
                     onChange={(event) => handleInputChange("duree", event.target.value)}
                     required
                 />
             </div>
-            <button type="submit">Enregistrer</button>
 
+            <button type="submit">Enregistrer</button>
         </form>
     );
 };

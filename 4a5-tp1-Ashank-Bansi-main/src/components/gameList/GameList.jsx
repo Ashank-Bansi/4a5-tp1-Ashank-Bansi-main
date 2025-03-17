@@ -1,21 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import gameList from "../../data/gameList"; 
 import GameCard from "../gameCard/GameCard";
 import "./GameList.css";
 
 export default function GameList() {
-    const [games, setGames] = useState([...gameList]); //Copie locale des jeux
+    const [games, setGames] = useState([...gameList]); // Copie locale des jeux
 
-    useEffect(() => {
-        // Vérifier s'il y a de nouveaux jeux stockés
-        const storedGames = JSON.parse(sessionStorage.getItem("games")) || [...gameList];
-        setGames(storedGames);
-    }, []);
+    const deleteGame = (gameId) => {
+        const index = gameList.findIndex(game => game.id === gameId);
+        if (index !== -1) {
+            gameList.splice(index, 1); // Supprime aussi du tableau global
+        }
+        setGames(games.filter(game => game.id !== gameId)); // Mise à jour de l'affichage
+    };
 
-    const deleteGameHandler = (gameId) => {
-        const updatedGames = games.filter(game => game.id !== gameId);
-        setGames(updatedGames);
-        sessionStorage.setItem("games", JSON.stringify(updatedGames)); //Sauvegarde temporaire
+    const updateGame = (id, updatedGame) => {
+        // Met à jour gameList
+        const index = gameList.findIndex(game => game.id === id);
+        if (index !== -1) {
+            gameList[index] = { ...gameList[index], ...updatedGame };
+        }
+
+        // Met à jour l'affichage
+        setGames(games.map(game => (game.id === id ? { ...game, ...updatedGame } : game)));
     };
 
     return (
@@ -24,7 +31,11 @@ export default function GameList() {
             <ul className="game-list">
                 {games.map((game) => (
                     <li key={game.id}>
-                        <GameCard {...game} onDelete={deleteGameHandler} />
+                        <GameCard 
+                            {...game} 
+                            onDelete={deleteGame}
+                            onUpdate={updateGame} 
+                        />
                     </li>
                 ))}
             </ul>

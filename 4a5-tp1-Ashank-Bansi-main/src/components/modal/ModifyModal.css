@@ -1,0 +1,70 @@
+.modifier-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modifier-modal-content {
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modifier-modal-content h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #000000;
+}
+
+.modifier-modal-content label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000;
+    text-align: center;
+}
+
+.modifier-modal-content input,
+.modifier-modal-content select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.modifier-modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.enregistrer-button {
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    width: 50%;
+    font-weight: bold;
+}
+
+.enregistrer-button:hover {
+    background: #45a049;
+}
+
+.annuler-button {
+    background: #f44336;
+    color: white;
+    cursor: pointer;
+    width: 50%;
+    font-weight: bold;
+}
+
+.annuler-button:hover {
+    background: #d32f2f;
+}
