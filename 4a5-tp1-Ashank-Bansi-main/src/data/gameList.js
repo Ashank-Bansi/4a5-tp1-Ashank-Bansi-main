@@ -2,7 +2,7 @@ import imgCatan from "../assets/CoverStrategie.png";
 import imgPandemic from "../assets/CoverCoop.png";
 import img7Wonders from "../assets/CoverFamille.png";
 
-export const gameList = [
+ const gameList = [
     {
         name: "Catan",
         id: "jeuCatan",
@@ -31,3 +31,5 @@ export const gameList = [
         duree: 30 
     }
 ];
+
+export default gameList;

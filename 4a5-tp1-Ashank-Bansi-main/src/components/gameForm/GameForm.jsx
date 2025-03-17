@@ -1,28 +1,34 @@
-import './GameForm.css';
-import { useState } from 'react';
+import "./GameForm.css";
+import GAMES from "../../data/gameList.js"; // Base de données locale
+import { useState } from "react";
 
-const GameForm = ({ onAddGame }) => {
+const GameForm = () => {
     const [enteredValues, setEnteredValues] = useState({
         name: "",
         categorie: "",
         joueurMin: "",
         joueurMax: "",
         duree: "",
+        cover: "",
     });
 
     function addGameSubmitHandler(event) {
         event.preventDefault();
+
         const newGame = {
+            id: "jeuTest1",
             name: enteredValues.name,
             categorie: enteredValues.categorie,
             joueurMin: parseInt(enteredValues.joueurMin, 10),
             joueurMax: parseInt(enteredValues.joueurMax, 10),
             duree: parseInt(enteredValues.duree, 10),
+            cover: enteredValues.cover,
         };
 
-        onAddGame(newGame);
+        GAMES.push(newGame);
+        console.log(GAMES);
 
-        setEnteredValues({ name: "", categorie: "", joueurMin: "", joueurMax: "", duree: "" });
+        setEnteredValues({ name: "", categorie: "", joueurMin: "", joueurMax: "", duree: "", cover: "" });
     }
 
     const handleInputChange = (identifier, value) => {
@@ -33,15 +39,14 @@ const GameForm = ({ onAddGame }) => {
     };
 
     return (
-        <form onSubmit={addGameSubmitHandler} className="game-form">
+        <form onSubmit={addGameSubmitHandler}>
             <h2>Ajouter un Jeu</h2>
 
             <div className="control">
-                <label htmlFor="name">Titre</label>
+                <label htmlFor="name">Nom du jeu</label>
                 <input
                     id="name"
                     type="text"
-                    name="name"
                     value={enteredValues.name}
                     onChange={(event) => handleInputChange("name", event.target.value)}
                     placeholder="Exemple : Catan"
@@ -53,22 +58,19 @@ const GameForm = ({ onAddGame }) => {
                 <label htmlFor="categorie">Catégorie</label>
                 <select
                     id="categorie"
-                    name="categorie"
                     value={enteredValues.categorie}
                     onChange={(event) => handleInputChange("categorie", event.target.value)}
                     required
                 >
-                    <option value="">Choisir une catégorie</option>
                     <option value="Stratégie">Stratégie</option>
                     <option value="Famille">Famille</option>
-                    <option value="Enfant">Enfant</option>
+                    <option value="Coopératif">Coopératif</option>
                 </select>
             </div>
 
             <div className="control">
                 <label>Nombre de joueurs</label>
                 <input
-                    id="nbJoueur"
                     type="text"
                     value={`${enteredValues.joueurMin}-${enteredValues.joueurMax}`}
                     placeholder="3-4"
@@ -84,9 +86,7 @@ const GameForm = ({ onAddGame }) => {
             <div className="control">
                 <label>Durée (en minutes)</label>
                 <input
-                    id="duree"
                     type="number"
-                    name="duree"
                     value={enteredValues.duree}
                     onChange={(event) => handleInputChange("duree", event.target.value)}
                     placeholder="60"
@@ -95,9 +95,16 @@ const GameForm = ({ onAddGame }) => {
                 />
             </div>
 
-            <div className="form-actions">
-                <button type="submit">Enregistrer</button>
+            <div className="control">
+
+                <p className="form-actions">
+                    <button type="submit" className="button">
+                        Enregistrer
+                    </button>
+                </p>
+
             </div>
+
         </form>
     );
 };

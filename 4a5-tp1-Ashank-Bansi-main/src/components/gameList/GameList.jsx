@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { gameList } from "../../data/gameList";
+import  gameList  from "../../data/gameList";
 import GameCard from "../gameCard/GameCard";
 import "./GameList.css";
 
