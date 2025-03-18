@@ -39,8 +39,8 @@ function GameCard(props) {
                 <SuppressionModal
                     onClose={() => setSuppressionModal(false)}
                     onConfirm={() => {
-                        props.onDelete(props.id); // Correction ici
-                        setSuppressionModal(false); // Ferme le modal après suppression
+                        props.onDelete(props.id); 
+                        setSuppressionModal(false); 
                     }}
                 />
             )}
